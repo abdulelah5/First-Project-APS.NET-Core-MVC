@@ -1,0 +1,146 @@
+﻿@model Product
+@{
+    ViewData["Title"] = "Fruit Shop";
+    List<Product> Model = (List<Product>)ViewData["ControllerProducts"];
+    Model.Add(new Product { ProductName = "Blackberry", ProductDetails = "Fresh blackberry from Makkah", ProductPrice = 12 });
+    Model.Add(new Product { ProductName = "Blueberry", ProductDetails = "Fresh blueberry from Madinah", ProductPrice = 11 });
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="icon" href="~/Reffrence/store_ico.png" type="image/png" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <div class="text-center">
+        <img src="/Reffrence/store_logo3.png" alt="store logo" class="navbar-brand" style="width:250px">
+    </div>
+    <h2 class="text-center text-secondary py-3">Our Fresh Products</h2>
+
+    <!--<div class="card-deck mx-md-5">
+        <div class="card bg-light text-center">
+            <img src="/Reffrence/Apple.png" alt="Apple pic" class="card-img-top" style="width: auto; height: 200px">
+            <div class="card-body">
+                <h5 class="card-title">Apple</h5>
+                <p class="card-text">Fresh apple from Riyadh</p>
+                <div class="">
+                    <a href="#" class="btn btn-secondary">Details</a>
+                </div>
+            </div>
+        </div>
+        <div class="card bg-light text-center">
+            <img src="/Reffrence/Orange.png" alt="Orange pic" class="card-img-top" style="width:auto; height:200px">
+            <div class="card-body">
+                <h5 class="card-title">Orange</h5>
+                <p class="card-text">Fresh orange from Yamammah</p>
+                <a href="#" class="btn btn-secondary">Details</a>
+            </div>
+        </div>
+        <div class="card bg-light text-center">
+            <img src="/Reffrence/Lemon.png" alt="Lemon pic" class="card-img-top" style="width: auto; height: 200px">
+            <div class="card-body">
+                <h5 class="card-title">Lemon</h5>
+                <p class="card-text">Fresh lemon from Hurrayeq</p>
+                <a href="#" class="btn btn-secondary">Details</a>
+            </div>
+        </div>
+        <div class="card bg-light text-center">
+            <img src="/Reffrence/Strawberry.png" alt="Strawberry pic" class="card-img-top" style="width: auto; height: 200px">
+            <div class="card-body">
+                <h5 class="card-title">Strawberry</h5>
+                <p class="card-text">Fresh strawberry from north of Saudi</p>
+                <a href="#" class="btn btn-secondary">Details</a>
+            </div>
+        </div>
+    </div>
+    <div class="card-deck mx-md-5">
+        <div class="card bg-light text-center">
+            <img src="/Reffrence/Mango.png" alt="Mango pic" class="card-img-top" style="width: auto; height: 200px">
+            <div class="card-body">
+                <h5 class="card-title">Mango</h5>
+                <p class="card-text">Fresh Mango from south of Saudi</p>
+                <a href="#" class="btn btn-secondary">Details</a>
+            </div>
+        </div>
+    </div>-->
+    <div class="box-shadow shadow-lg rounded-lg">
+        @for (int i = 0; i < Model.Count() - 1; i += 4)
+        {
+            <div class="row top30 mx-md-1">
+
+                @for (int j = 0; j < 4 && j + i < Model.Count(); j++)
+                {
+                    @if (j == 0 || (Model.ElementAtOrDefault(i + j) != null))//if (j == 0 && i == 0)
+                    {
+                        /*<div class="col-md-4">
+                            <div class="card bg-light text-center">
+                                <img src="/Reffrence/@Model[j].ProductName+.png" alt="@Model[j].ProductName pic" class="card-img-top" style="width: auto; height: 200px">
+                                <div class="card-body">
+                                    <h5 class="card-title">@Model[j].ProductName</h5>
+                                    <p class="card-text">@Model[j].ProductDetails</p>
+                                    <a href="#" class="btn btn-secondary">Details</a>
+                                </div>
+                            </div>
+                        </div>*/
+                        <div class="col-md-3 py-2" style="display:flex">
+                            <div class="card bg-light text-center" style="flex:5">
+                                <img src="/Reffrence/@(Model[i+j].ProductName + ".png")" alt="@Model[i+j].ProductName pic" class="card-img-top" style="width: auto; height: 200px">
+                                <div class="card-body d-flex flex-column" style="height:180px">
+                                     <!--<fieldset>-->                                    
+                                        <!--Html.AntiForgeryToken()-->
+
+                                        <h5 id="h5Pname" name="product" class="card-title">@Model[i + j].ProductName</h5>
+                                        <!--<input type="text" name="ProductName" value="Model[i + j].ProductName" style="visibility:hidden" />-->
+                                        <p class="card-text">@Model[i + j].ProductDetails</p>
+                                        <a id="btnDetails" asp-controller="Products" asp-action="Details" asp-route-ProductName="@Model[i+j].ProductName" asp-route-ProductPrice="@Model[i+j].ProductPrice" asp-route-ProductDetails="@Model[i+j].ProductDetails"
+                                           class="btn btn-secondary mt-auto" style="width:85px; margin: 0 auto; float:none; margin-bottom:5px">Details</a>
+                                        <!--<input type="submit" onclick="details()" value="Details" class="btn btn-secondary mt-auto" />-->
+   <!-- </fieldset>-->
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    /*else if (i != 0 && j == 0)
+                    {
+                    <div class="col-md-4">
+                        <div class="card bg-light text-center">
+                            <img src="/Reffrence/@Model[i].ProductName+.png" alt="@Model[i].ProductName pic" class="card-img-top" style="width: auto; height: 200px">
+                            <div class="card-body">
+                                <h5 class="card-title">@Model[i].ProductName</h5>
+                                <p class="card-text">@Model[i].ProductDetails</p>
+                                <a href="#" class="btn btn-secondary">Details</a>
+                            </div>
+                        </div>
+                    </div>
+                    }
+                    else
+                    {
+                    <div class="col-md-4">
+                        <div class="card bg-light text-center">
+                            <img src="/Reffrence/@Model[i+j].ProductName+.png" alt="@Model[i+j].ProductName pic" class="card-img-top" style="width: auto; height: 200px">
+                            <div class="card-body">
+                                <h5 class="card-title">@Model[i + j].ProductName</h5>
+                                <p class="card-text">@Model[i + j].ProductDetails</p>
+                                <a href="#" class="btn btn-secondary">Details</a>
+                            </div>
+                        </div>
+                    </div>
+                    }*/
+                }
+            </div>
+        }
+    </div> 
+    <script>
+        function details() {
+            /*var model = { ProdictID: $('#ProdictID').val(), ProductName: $('#ProductName').val() };
+            var json = JSON.stringify(model);*/
+            $.ajax({
+                url: '@Url.Action("Details", "Products")', type: 'GET',
+                //data: { json: json }, dataType: 'json',
+                success: function (result) {/*handle the response from the controller*/ }
+
+            });
+        }
+    </script>
+</body >
+</html >

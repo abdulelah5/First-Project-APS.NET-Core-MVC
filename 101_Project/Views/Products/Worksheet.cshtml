@@ -1,0 +1,36 @@
+﻿@model Product
+@{
+    ViewData["Title"] = "Contact Fruit Shop";
+    Product product = new Product();
+    product = (Product)ViewData["city"];
+
+}
+<form>
+    <p>يحافظ على قيمتها اذا بتضغط اي زر ولكن لو رحت صفحة ثانية او سويت ريفرش ورجعت تطير</p>
+    <select id="city" name="ProductName" asp-for="ProductName">
+        <!--يحافظ على قيمتها اذا بتضغط اي زر ولكن لو رحت صفحة ثانية او سويت ريفرش ورجعت تطير-->
+        <option hidden></option>
+        <option value="Riyadh">الرياض</option>
+        <option value="Makkah">مكة</option>
+        <option value="Jeddah">جدة</option>
+    </select>
+    <input type="submit" value="انضمام" asp-route-ProductName="@product.ProductName">
+</form><hr />
+
+<!--يحافظ على قيمتها بعد الرفرش او ضغط اي زر ولو رحت اي صفحة ورجعت تبقى نفسها-->
+             <p>يحافظ على قيمتها بعد الرفرش او ضغط اي زر ولو رحت اي صفحة ورجعت تبقى نفسها</p>
+<select id="interface-output" class="browser-default">
+    <option id="select" value="select">Select an interface</option>
+    <option id="eth0" value="eth0">eth0</option>
+    <option id="eth1" value="eth1">eth1</option>
+</select><br /><br /><hr />
+
+<script>
+      document.getElementById('interface-output').onchange = function() {
+        localStorage.setItem('selectedtem', document.getElementById('interface-output').value);
+    };
+
+      if (localStorage.getItem('selectedtem')) {
+        document.getElementById('interface-output').options[localStorage.getItem('selectedtem')].selected = true;
+      }
+</script>
